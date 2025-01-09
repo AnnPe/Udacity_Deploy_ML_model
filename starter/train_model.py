@@ -26,8 +26,6 @@ def slice_inference(data, features, model, encoder, lb):
     for feature in features:
         for value in data[feature].unique():
             subset = data[data[feature] == value]
-            #y = subset["salary"]
-            #X = process_data(subset, encoder = encoder, lb = lb, label = None, categorical_features = features, training = False)[0]
             X, y, _, __ = process_data(subset,categorical_features=features, training = False, encoder = encoder, lb = lb,label="salary")
             pred = model.predict(X)
             precision, recall, fscore = compute_model_metrics(y, pred)
@@ -37,10 +35,6 @@ def slice_inference(data, features, model, encoder, lb):
                 r[feature] = {}
     return r
 
-
-# Add the necessary imports for the starter code.
-
-# Add code to load in the data.
 
 if __name__ == "__main__":
 
@@ -55,6 +49,8 @@ if __name__ == "__main__":
     model = train_model(X_train, y_train)
     predictions = inference(model , X_test)
 
+    print (compute_model_metrics(y_test, predictions))
+
     joblib.dump(model, f"{folder_path}/model/model.joblib")
     joblib.dump(encoder, f"{folder_path}/model/encoder.joblib")
     joblib.dump(lb, f"{folder_path}/model/lb.joblib")
@@ -63,6 +59,3 @@ if __name__ == "__main__":
     with open (f"{folder_path}/model/slice_inference.json", "w") as file:
         json.dump(r, file, indent = 4)
 
-# Proces the test data with the process_data function.
-
-# Train and save a model.
