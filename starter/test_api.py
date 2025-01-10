@@ -44,5 +44,6 @@ def test_above(client):
                         }
                     )
 
+    print ("test")
     assert r.status_code == 200
     assert r.json() == {"predictions": ">50K"}
