@@ -1,0 +1,18 @@
+name: Reject Direct Push to Master
+
+on:
+  push:
+    branches:
+      - master
+      - main  # Optionally add any other branches you want to protect
+
+jobs:
+  reject-direct-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for direct push to master
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "push" && $GITHUB_REF == "refs/heads/master" ]]; then
+            echo "Direct push to master is not allowed. Please create a pull request."
+            exit 1  # This causes the workflow to fail
+          fi
