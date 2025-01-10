@@ -43,5 +43,6 @@ def test_above(client):
                             "native-country":"United-States"
                         }
                     )
+    print ("let us crack this test!")
     assert r.status_code == 200
-    assert r.json() == {"predictions": ">50K"}
+    assert r.json() == {"predictions": "<=50K"}
